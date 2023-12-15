@@ -78,13 +78,22 @@
                 counter++;
                 Console.WriteLine($"{counter}: {equipment}");
             }
-            bool parse = int.TryParse(Console.ReadLine(), out choice);
-            if (!parse || choice > player.Equipment.Count)
+            //lavet som en try catch for memes
+            try
             {
-                Console.WriteLine("invalid input, back to menu");
+                choice = int.Parse(Console.ReadLine());
+
+                if (choice <= 0 || choice > player.Equipment.Count)
+                {
+                    throw new Exception();
+                }
+            player.Equipment.RemoveAt(choice - 1);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid input format, back to menu");
                 return;
             }
-            player.Equipment.RemoveAt(choice - 1);
 
         }
 

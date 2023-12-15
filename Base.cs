@@ -14,17 +14,29 @@
 
         public virtual AttackResult Attack(Base target)
         {
-            //calculates damage based on speed and strenght, and adds an element of randomness
+            
+            int hit = Damage(target);
+            Console.WriteLine($"You were hit for {hit}");
+            target.Hp -= hit;
+            return IsDead(target);
+        }
+        /// <summary>
+        /// Calculates damage based on strenght, randomness and speed
+        /// </summary>
+        /// <param name="target"></param>
+        public int Damage(Base target)
+        {
             Random random = new Random();
-            target.Hp = target.Hp - this.Strenght + random.Next(-5, 5);
+            int damage = this.Strenght + random.Next(-5, 5);
 
             if (this.Speed >= 2 * target.Speed)
             {
                 Console.WriteLine($"You are to slow, and got hit twice!");
-                target.Hp = target.Hp - this.Strenght + random.Next(-5, 5);
+                damage = this.Strenght + random.Next(-5, 5);
             }
-            return IsDead(target);
+            return damage;
         }
+
         //checks if either target died.
         public AttackResult IsDead(Base target)
         {

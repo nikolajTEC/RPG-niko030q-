@@ -68,13 +68,9 @@
             {
                 Console.WriteLine($"You chose {(TypeOfAttackEnum)choice}");
             }
-            Random random = new Random();
-            target.Hp = target.Hp - this.Strenght + random.Next(-5, 5);
-            if (this.Speed >= 2 * target.Speed)
-            {
-                Console.WriteLine("You are so fast, you hit the target twice!");
-                target.Hp = target.Hp - this.Strenght + random.Next(-5, 5);
-            }
+            int hit = Damage(target);
+            Console.WriteLine($"You did {hit} damage!");
+            target.Hp -= hit;
             return IsDead(target);
         }
         public override string ToString()
